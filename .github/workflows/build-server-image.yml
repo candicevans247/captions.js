@@ -46,5 +46,5 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/captionsjs-server:amd64
-            ${{ secrets.DOCKERHUB_USERNAME }}/captionsjs-server:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/captionsjs-render:amd64
+            ${{ secrets.DOCKERHUB_USERNAME }}/captionsjs-render:latest
