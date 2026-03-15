@@ -4,12 +4,7 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 
-import {
-  S3Client,
-  PutObjectCommand,
-  GetObjectCommand,
-} from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 import { env } from "./config/env.js";
 import { logger } from "./utils/logger.js";
@@ -46,6 +41,7 @@ const r2Client = new S3Client({
 });
 
 const r2Bucket = requireEnv("R2_BUCKET");
+const r2PublicUrl = requireEnv("R2_PUBLIC_URL");
 
 async function uploadVideoToR2(localFilePath: string, objectKey: string): Promise<string> {
   const buffer = fs.readFileSync(localFilePath);
@@ -59,19 +55,7 @@ async function uploadVideoToR2(localFilePath: string, objectKey: string): Promis
     }),
   );
 
-  const publicBase = process.env.R2_PUBLIC_URL;
-  if (publicBase) {
-    return `${publicBase.replace(/\/$/, "")}/${objectKey}`;
-  }
-
-  return await getSignedUrl(
-    r2Client,
-    new GetObjectCommand({
-      Bucket: r2Bucket,
-      Key: objectKey,
-    }),
-    { expiresIn: 60 * 60 * 24 * 7 },
-  );
+  return `${r2PublicUrl.replace(/\/$/, "")}/${objectKey}`;
 }
 
 function sanitizeJobId(jobId?: string | number): string {
@@ -118,10 +102,12 @@ export const createApp = () => {
 
     const safeJobId = sanitizeJobId(jobId);
     const timestamp = Date.now();
+
     const outputPath = path.join(
       os.tmpdir(),
       `${safeJobId}-captioned-${timestamp}.mp4`,
     );
+
     const objectKey = `jobs/${safeJobId}/final-captioned-${timestamp}.mp4`;
 
     try {
@@ -180,7 +166,7 @@ export const createApp = () => {
           fs.unlinkSync(outputPath);
         }
       } catch (_cleanupError) {
-        // ignore temp cleanup failure
+        // ignore cleanup failure
       }
     }
   });
