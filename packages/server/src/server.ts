@@ -4,7 +4,12 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+} from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 import { env } from "./config/env.js";
 import { logger } from "./utils/logger.js";
@@ -41,7 +46,6 @@ const r2Client = new S3Client({
 });
 
 const r2Bucket = requireEnv("R2_BUCKET");
-const r2PublicUrl = requireEnv("R2_PUBLIC_URL");
 
 async function uploadVideoToR2(localFilePath: string, objectKey: string): Promise<string> {
   const buffer = fs.readFileSync(localFilePath);
@@ -55,7 +59,19 @@ async function uploadVideoToR2(localFilePath: string, objectKey: string): Promis
     }),
   );
 
-  return `${r2PublicUrl.replace(/\/$/, "")}/${objectKey}`;
+  const command = new GetObjectCommand({
+    Bucket: r2Bucket,
+    Key: objectKey,
+  });
+
+  // Cast to any to avoid AWS SDK type mismatch issues in this monorepo build
+  const signedUrl = await getSignedUrl(
+    r2Client as any,
+    command as any,
+    { expiresIn: 60 * 60 * 24 * 7 },
+  );
+
+  return signedUrl;
 }
 
 function sanitizeJobId(jobId?: string | number): string {
