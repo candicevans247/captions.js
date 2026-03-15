@@ -11,6 +11,23 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Debug server TypeScript build
+        run: pnpm --filter @captionsjs/server build
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -27,4 +44,6 @@ jobs:
           file: packages/server/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/captionsjs-render:amd64
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/captionsjs-server:amd64
+            ${{ secrets.DOCKERHUB_USERNAME }}/captionsjs-server:latest
