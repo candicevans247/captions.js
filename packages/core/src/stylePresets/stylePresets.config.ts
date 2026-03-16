@@ -78,7 +78,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "bounce",
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -178,7 +178,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "scale",
-      linesPerPage: 2,
+      linesPerPage: 1,
       positionTopOffset: 0,
     },
     layoutSettings: {
@@ -210,7 +210,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "scale",
-      linesPerPage: 2,
+      linesPerPage: 1,
       positionTopOffset: 0,
     },
     layoutSettings: {
@@ -248,7 +248,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "underline",
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -285,7 +285,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "slide-up",
-      linesPerPage: 2,
+      linesPerPage: 1,
       positionTopOffset: 0,
     },
     layoutSettings: {
@@ -348,7 +348,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "none",
-      linesPerPage: 2,
+      linesPerPage: 1,
       positionTopOffset: 0,
     },
     layoutSettings: {
@@ -442,7 +442,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "bounce",
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -473,7 +473,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "underline",
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -504,7 +504,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "slide-left",
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -535,7 +535,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "scale",
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -597,7 +597,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "middle",
       animation: "pop",
-      linesPerPage: 3,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -628,7 +628,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "bounce",
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -696,7 +696,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "none",
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -727,7 +727,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "none",
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -764,7 +764,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "slide-up",
-      linesPerPage: 3,
+      linesPerPage: 1,
       positionTopOffset: 0,
     },
     layoutSettings: {
@@ -796,7 +796,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "none",
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -833,7 +833,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "box",
-      linesPerPage: 2,
+      linesPerPage: 1,
       positionTopOffset: 0,
     },
     layoutSettings: {
@@ -871,7 +871,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "underline",
-      linesPerPage: 2,
+      linesPerPage: 1,
       positionTopOffset: 0,
     },
     layoutSettings: {
