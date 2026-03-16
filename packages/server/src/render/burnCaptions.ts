@@ -128,7 +128,7 @@ const addCanvasCaptionsToVideo = async (
   canvas.getContext("2d").font = font;
   layer.getNativeCanvasElement().getContext("2d").font = font;
 
-  const frameRate = 30;
+  const frameRate = 60;
   const frameDuration = 1 / frameRate;
   const overlayStream = new PassThrough({ highWaterMark: 1024 * 1024 });
 
