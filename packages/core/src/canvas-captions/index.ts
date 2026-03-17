@@ -345,17 +345,18 @@ export const renderFrame: RenderFrameFn = (
       );
       text.fillAfterStrokeEnabled(true);
 
-      const textTrim =
-        captionsSettings.animation === "box-word"
-          ? createKonvaText(
-              word,
-              x,
-              targetFontSize,
-              captionsSettings,
-              fillColor,
-              true,
-            )
-          : null;
+      
+const textTrim =
+  captionsSettings.animation === "box-word"
+    ? createKonvaText(
+        word,
+        x,
+        targetFontSize,
+        captionsSettings,
+        fillColor,
+        true
+      )
+    : null;
 
       if (isCurrentCaption) {
         activeCaptionState = {
