@@ -230,27 +230,6 @@ export const getFillColor = (
   return captionsSettings.style.font.fontColor;
 };
 
-  /* if (
-    captionsSettings.animation === 'pop' ||
-    captionsSettings.animation === 'scale'
-  ) {
-    return caption.highlightColor || captionsSettings.style.font.fontColor;
-  } */
-
-  if (
-    captionsSettings.animation === "box" &&
-    (isCurrentCaption || isPastCaption)
-  ) {
-    return caption.highlightColor || captionsSettings.style.aplifiedWordColor;
-  }
-
-  if (isCurrentCaption) {
-    return caption.highlightColor || captionsSettings.style.aplifiedWordColor;
-  }
-
-  return captionsSettings.style.font.fontColor;
-};
-
 export const getCaptionsGroupY = (
   groupHeight: number,
   canvasWidth: number,
