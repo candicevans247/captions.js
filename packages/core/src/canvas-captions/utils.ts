@@ -211,8 +211,8 @@ export const getFillColor = (
     return captionsSettings.style.font.fontColor;
   }
 
-  // If this style highlights with a box, keep the current word text color normal
-  if (isCurrentCaption && captionsSettings.highlightStyle === "box") {
+  // box-word-bg: text is always fontColor (white), box provides the highlight
+  if (captionsSettings.animation === "box-word-bg") {
     return captionsSettings.style.font.fontColor;
   }
 
