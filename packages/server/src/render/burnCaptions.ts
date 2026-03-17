@@ -227,12 +227,12 @@ try {
   } catch (e) {
     console.warn('Failed to destroy Konva resources:', e);
   }
-  
+}
   if (global.gc) {
     global.gc();
     console.log('🗑️ GC after caption rendering');
   }
-}
+
 const getDimensions = async (videoPath: string): Promise<[number, number]> => {
   return new Promise((resolve, reject) => {
     ffmpeg.ffprobe(videoPath, (err, metadata) => {
