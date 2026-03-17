@@ -177,6 +177,17 @@ export const createApp = () => {
         error: message,
       });
     } finally {
+        if (global.gc) {
+    const memBefore = process.memoryUsage().heapUsed / 1024 / 1024;
+    global.gc();
+    const memAfter = process.memoryUsage().heapUsed / 1024 / 1024;
+    logger.info({ 
+      jobId: safeJobId,
+      memBeforeMB: memBefore.toFixed(0),
+      memAfterMB: memAfter.toFixed(0),
+      freedMB: (memBefore - memAfter).toFixed(0)
+    }, "GC after caption burn");
+  }
       try {
         if (fs.existsSync(outputPath)) {
           fs.unlinkSync(outputPath);
