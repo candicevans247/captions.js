@@ -31,6 +31,15 @@ export interface CaptionsSettings {
   lineSpacing?: number | null;
   position: "auto" | "top" | "middle" | "bottom";
   positionTopOffset?: number;
+
+    // optional fields for styles
+  displayMode?: "chunk" | "word-by-word";
+  highlightStyle?: "text" | "box";
+  highlightBoxColor?: string;
+  highlightBoxPaddingX?: number;
+  highlightBoxPaddingY?: number;
+  highlightBoxCornerRadius?: number;
+  
   animation:
     | "none"
     | "bounce"
