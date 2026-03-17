@@ -519,7 +519,7 @@ export const stylePresets: StylePreset[] = [
         font: {
           italic: false,
           fontSize: 20,
-          fontColor: "#FFFFFFFF",
+          fontColor: "#FFFFFFFF",       
           underline: false,
           fontFamily: "Montserrat",
           fontWeight: "black",
@@ -530,12 +530,12 @@ export const stylePresets: StylePreset[] = [
         name: "Flamingo",
         backgroundColor: "#E4E4E4FF",
         verticalCoverImg:
-          "https://cdn.shorty.plus/captions-preview/flamingo_preview.png",
-        aplifiedWordColor: "#ff0000ff",
+          "https://storage.googleapis.com/loomz-front-static/video-editor/img/flamingo_preview.png",
+        aplifiedWordColor: "#ff0000ff", 
       },
       position: "bottom",
-      animation: "scale",
-      linesPerPage: 1,
+      animation: "box-word-bg",         // <-- changed from "scale"
+      linesPerPage: 2,
     },
     layoutSettings: {
       aspectRatio: "9:16",
@@ -567,15 +567,13 @@ export const stylePresets: StylePreset[] = [
       position: "bottom",
       animation: "box",
       linesPerPage: 1,
-     // mod
-    displayMode: "word-by-word",
+    },
+    layoutSettings: {
+      aspectRatio: "9:16",
+      aIAutoLayout: ["fill", "fit", "split", "three", "four", "screenShare"],
+      fitLayoutAspectRatio: "original",
+    },
   },
-  layoutSettings: {
-    aspectRatio: "9:16",
-    aIAutoLayout: ["fill", "fit", "split", "three", "four", "screenShare"],
-    fitLayoutAspectRatio: "original",
-  },
-},
   {
     id: 17,
     captionsSettings: {
@@ -662,18 +660,13 @@ export const stylePresets: StylePreset[] = [
         name: "From",
         backgroundColor: "#E4E4E4FF",
         verticalCoverImg:
-          "https://cdn.shorty.plus/captions-preview/karaoke_preview.png",
+          "https://storage.googleapis.com/loomz-front-static/video-editor/img/karaoke_preview.png",
         aplifiedWordColor: "#ffdd03ff",
       },
       position: "bottom",
-      animation: "pop",
-      linesPerPage: 1,
-          // mod
-    highlightStyle: "box",
-    highlightBoxColor: "#ff0000ff",
-    highlightBoxPaddingX: 8,
-    highlightBoxPaddingY: 4,
-    highlightBoxCornerRadius: 6,
+      animation: "pop",                
+      linesPerPage: 1,                  
+      wordsPerPage: 1,                
     },
     layoutSettings: {
       aspectRatio: "9:16",
