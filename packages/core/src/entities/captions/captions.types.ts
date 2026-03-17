@@ -28,6 +28,7 @@ export interface CaptionsSettings {
     backgroundColor: string;
   };
   linesPerPage: number;
+  wordsPerPage?: number;
   lineSpacing?: number | null;
   position: "auto" | "top" | "middle" | "bottom";
   positionTopOffset?: number;
