@@ -42,6 +42,7 @@ type ActiveCaptionRenderState = {
 const wordPriorityAnimations = new Set<CaptionsSettings["animation"]>([
   "bounce",
   "box-word",
+  "box-word-bg", // <-- added so the red box word renders on top correctly
 ]);
 
 const symbolsPerLineCache = new WeakMap<CaptionsSettings, Map<string, number>>();
@@ -134,14 +135,16 @@ const getTotalSymbolInLineCached = (
 const getChunkCacheKey = (
   totalSymbolInLine: number,
   linesPerPage: number,
-) => `${totalSymbolInLine}|${linesPerPage}`;
+  wordsPerPage?: number, // <-- added
+) => `${totalSymbolInLine}|${linesPerPage}|${wordsPerPage ?? 0}`;
 
 const getChunksCached = (
   captions: Caption[],
   totalSymbolInLine: number,
   linesPerPage: number,
+  wordsPerPage?: number, // <-- added
 ): ChunkCacheEntry => {
-  const cacheKey = getChunkCacheKey(totalSymbolInLine, linesPerPage);
+  const cacheKey = getChunkCacheKey(totalSymbolInLine, linesPerPage, wordsPerPage);
 
   let cacheByKey = chunkCache.get(captions);
   if (!cacheByKey) {
@@ -154,11 +157,16 @@ const getChunksCached = (
     return cached;
   }
 
-  const chunks = splitCaptionsBySentenceAwareBlocks(
-    captions,
-    totalSymbolInLine,
-    linesPerPage,
-  );
+  // --- word-by-word mode for "From" style ---
+  const chunks =
+    wordsPerPage === 1
+      ? captions.map((caption) => [caption]) // each word is its own isolated chunk
+      : splitCaptionsBySentenceAwareBlocks(
+          captions,
+          totalSymbolInLine,
+          linesPerPage,
+        );
+
   const ranges: ChunkRange[] = chunks.map((chunk) => ({
     start: chunk[0].startTime,
     end: chunk[chunk.length - 1].endTime,
@@ -237,10 +245,13 @@ export const renderFrame: RenderFrameFn = (
     layer,
     targetFontSize,
   );
+
+  // --- pass wordsPerPage through to chunk cache ---
   const { ranges } = getChunksCached(
     captions,
     totalSymbolInLine,
     captionsSettings.linesPerPage,
+    captionsSettings.wordsPerPage, // <-- new
   );
   const currentChunk = findChunkByTime(ranges, currentTime);
 
@@ -345,18 +356,18 @@ export const renderFrame: RenderFrameFn = (
       );
       text.fillAfterStrokeEnabled(true);
 
-      
-const textTrim =
-  captionsSettings.animation === "box-word"
-    ? createKonvaText(
-        word,
-        x,
-        targetFontSize,
-        captionsSettings,
-        fillColor,
-        true
-      )
-    : null;
+      // box-word-bg does not need a textTrim — only box-word does
+      const textTrim =
+        captionsSettings.animation === "box-word"
+          ? createKonvaText(
+              word,
+              x,
+              targetFontSize,
+              captionsSettings,
+              fillColor,
+              true,
+            )
+          : null;
 
       if (isCurrentCaption) {
         activeCaptionState = {
@@ -366,7 +377,6 @@ const textTrim =
             (currentTime - caption.startTime) /
             (caption.endTime - caption.startTime),
           textTrim: textTrim,
-          //progress: Math.min(1, (currentTime - caption.start_time) / 0.5),
         };
         activeCaptionText = text;
       }
@@ -401,11 +411,6 @@ const textTrim =
     });
 
     const lineMetrics = alignLinesInGroup(group, maxGroupWidth, wordSpacing);
-
-    /*  const progress =
-      (currentTime - currentChunk[0].start_time) /
-      (currentChunk[currentChunk.length - 1].end_time -
-        currentChunk[0].start_time); */
 
     const progress = Math.min(
       1,
@@ -446,7 +451,10 @@ const textTrim =
     }
 
     const currentText = activeCaptionText as Konva.Text | null;
-    if (currentText !== null && wordPriorityAnimations.has(captionsSettings.animation)) {
+    if (
+      currentText !== null &&
+      wordPriorityAnimations.has(captionsSettings.animation)
+    ) {
       currentText.parent?.moveToTop();
       currentText.moveToTop();
     }
@@ -556,7 +564,6 @@ export const renderStylePreset = async (
   const layer = new Konva.Layer({ listening: false });
   stage.add(layer);
 
-  const fontSettings = stylePreset.captionsSettings.style.font;
   const fontFamily = stylePreset.captionsSettings.style.font
     .fontFamily as (typeof googleFontsList)[number];
   await loadGoogleFont2(fontFamily);
