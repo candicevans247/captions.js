@@ -98,7 +98,7 @@ export const animate = (
     // --- NEW: box-word-bg for Flamingo ---
     case 'box-word-bg':
       if (current) {
-        const paddingX = 2;
+        const paddingX = 3;
         const paddingY = 4;
         const cornerRadius = 6;
         const wordBox = new Konva.Rect({
