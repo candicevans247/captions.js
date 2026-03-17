@@ -567,13 +567,15 @@ export const stylePresets: StylePreset[] = [
       position: "bottom",
       animation: "box",
       linesPerPage: 1,
-    },
-    layoutSettings: {
-      aspectRatio: "9:16",
-      aIAutoLayout: ["fill", "fit", "split", "three", "four", "screenShare"],
-      fitLayoutAspectRatio: "original",
-    },
+     // mod
+    displayMode: "word-by-word",
   },
+  layoutSettings: {
+    aspectRatio: "9:16",
+    aIAutoLayout: ["fill", "fit", "split", "three", "four", "screenShare"],
+    fitLayoutAspectRatio: "original",
+  },
+},
   {
     id: 17,
     captionsSettings: {
@@ -666,6 +668,12 @@ export const stylePresets: StylePreset[] = [
       position: "bottom",
       animation: "pop",
       linesPerPage: 1,
+          // mod
+    highlightStyle: "box",
+    highlightBoxColor: "#ff0000ff",
+    highlightBoxPaddingX: 8,
+    highlightBoxPaddingY: 4,
+    highlightBoxCornerRadius: 6,
     },
     layoutSettings: {
       aspectRatio: "9:16",
