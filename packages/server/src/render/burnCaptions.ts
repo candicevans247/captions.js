@@ -79,7 +79,7 @@ export const burnCaptions = async (params: BurnCaptionsParams) => {
           font: {
             ...captionsSettings.style.font,
             // ✅ Scale font up for vertical — tune between 1.3 and 1.6
-            fontSize: Math.round(captionsSettings.style.font.fontSize * 2.0),
+            fontSize: Math.round(captionsSettings.style.font.fontSize * 3.0),
           },
         },
         // ✅ Cap lines per page at 2 for vertical to avoid tall caption blocks
