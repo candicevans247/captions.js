@@ -535,7 +535,7 @@ export const stylePresets: StylePreset[] = [
       },
       position: "bottom",
       animation: "box-word-bg",         // <-- changed from "scale"
-      linesPerPage: 2,
+      linesPerPage: 1,
     },
     layoutSettings: {
       aspectRatio: "9:16",
