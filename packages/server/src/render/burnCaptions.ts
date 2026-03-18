@@ -214,24 +214,9 @@ const addCanvasCaptionsToVideo = async (
       overlayStream.end();
     }
   };
-  
-try {
+
   await Promise.all([ffmpegPromise, writeFrames()]);
   return outputVideo;
-} finally {
-  try {
-    layer.destroy();
-    stage.destroy();
-    console.log('🧹 Konva resources destroyed');
-  } catch (e) {
-    console.warn('Failed to destroy Konva resources:', e);
-  }
-  
-  if (global.gc) {
-    global.gc();
-    console.log('🗑️ GC after caption rendering');
-  }
-}  
 };
 
 const getDimensions = async (videoPath: string): Promise<[number, number]> => {
