@@ -64,15 +64,41 @@ export const burnCaptions = async (params: BurnCaptionsParams) => {
 
   const duration = await getDuration(params.video);
 
+  // ✅ Detect video orientation
+  const isVertical = height > width;
+
+  // ✅ For vertical videos, scale up font size so captions are
+  // legible on mobile screens. The renderer will automatically
+  // fit fewer words per line at the larger size — which is correct
+  // behaviour for shorts/reels (think TikTok style).
+  const adjustedCaptionsSettings: CaptionsSettings = isVertical
+    ? {
+        ...captionsSettings,
+        style: {
+          ...captionsSettings.style,
+          font: {
+            ...captionsSettings.style.font,
+            // ✅ Scale font up for vertical — tune between 1.3 and 1.6
+            fontSize: Math.round(captionsSettings.style.font.fontSize * 1.5),
+          },
+        },
+        // ✅ Cap lines per page at 2 for vertical to avoid tall caption blocks
+        linesPerPage: Math.min(captionsSettings.linesPerPage, 2),
+        // ✅ Move captions up from very bottom — tune this value
+        // higher number = further up toward middle
+        positionTopOffset: (captionsSettings.positionTopOffset ?? 0) + 100,
+      }
+    : captionsSettings;
+
   console.time("Burn captions time");
   await addCanvasCaptionsToVideo(
     params.video,
     params.output,
     captions,
-    captionsSettings as CaptionsSettings,
+    adjustedCaptionsSettings,
     [width, height],
     [0, duration],
-    1,
+    1, // toCoef stays 1 — font size handles the scaling
   );
   console.timeEnd("Burn captions time");
   console.log("Output video saved to:", params.output);
