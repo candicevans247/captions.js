@@ -35,5 +35,4 @@ ENV PORT=4000
 WORKDIR /app
 COPY --from=deps /app/deploy/ ./
 EXPOSE 4000
-ENTRYPOINT ["node", "dist/index.js"]
-CMD []
+CMD ["node", "--expose-gc", "--max-old-space-size=1024", "dist/index.js"]
