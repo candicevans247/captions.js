@@ -1,3 +1,4 @@
+
 FROM node:22-slim AS base
 WORKDIR /app
 
@@ -35,4 +36,5 @@ ENV PORT=4000
 WORKDIR /app
 COPY --from=deps /app/deploy/ ./
 EXPOSE 4000
-CMD ["node", "--expose-gc", "--max-old-space-size=1024", "dist/index.js"]
+ENTRYPOINT ["node", "dist/index.js"]
+CMD []
