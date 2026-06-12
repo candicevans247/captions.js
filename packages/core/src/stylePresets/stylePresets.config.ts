@@ -564,7 +564,7 @@ export const stylePresets: StylePreset[] = [
           "https://cdn.shorty.plus/captions-preview/captions-deep-diver-b&w.png",
         aplifiedWordColor: "#ffffffff",
       },
-      position: "bottom",
+      position: "middle",
       animation: "box",
       linesPerPage: 1,
     },
